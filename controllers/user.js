@@ -132,7 +132,7 @@ export const forgotPassword = async (req, res) => {
     await user.save();
 
     // send mail
-    sendPasswordResetEmail(user.email, `http://localhost:5173/reset-password/${resetToken}`)
+    sendPasswordResetEmail(user.email, `https://talk-sphre-nazim.vercel.app/reset-password/${resetToken}`)
     res.status(200).json({ success: true, message: "Password reset link sent to your email" });
 
 
