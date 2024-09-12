@@ -16,6 +16,11 @@ const schema = new Schema(
       required: true,
       unique: true,
     },
+    email: {
+      type: String,
+      required: true,
+
+    },
     password: {
       type: String,
       required: true,
@@ -31,16 +36,28 @@ const schema = new Schema(
         required: true,
       },
     },
+    lastLogin: {
+      type: Date,
+      default: Date.now,
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    resetPasswordToken: String,
+    resetPasswordExpiresAt: Date,
+    verificationToken: String,
+    verificationTokenExpiresAt: Date,
   },
   {
     timestamps: true,
   }
 );
 
-schema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+// schema.pre("save", async function (next) {
+//   if (!this.isModified("password")) return next();
 
-  this.password = await hash(this.password, 10);
-});
+//   this.password = await hash(this.password, 10);
+// });
 
 export const User = mongoose.models.User || model("User", schema);

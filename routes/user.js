@@ -1,14 +1,17 @@
 import express from "express";
 import {
   acceptFriendRequest,
+  forgotPassword,
   getMyFriends,
   getMyNotifications,
   getMyProfile,
   login,
   logout,
   newUser,
+  resetPassword,
   searchUser,
   sendFriendRequest,
+  verifyEmail,
 } from "../controllers/user.js";
 import {
   acceptRequestValidator,
@@ -24,6 +27,9 @@ const app = express.Router();
 
 app.post("/new", singleAvatar, registerValidator(), validateHandler, newUser);
 app.post("/login", loginValidator(), validateHandler, login);
+app.post("/verify-email",verifyEmail)
+app.post('/forgot-password', forgotPassword)
+app.post('/reset-password/:token', resetPassword)
 
 // After here user must be logged in to access the routes
 
@@ -32,6 +38,7 @@ app.use(isAuthenticated);
 app.get("/me", getMyProfile);
 
 app.get("/logout", logout);
+
 
 app.get("/search", searchUser);
 
