@@ -42,7 +42,9 @@ const uploadFilesToCloudinary = async (files = []) => {
       cloudinary.uploader.upload(
         getBase64(file),
         {
-          resource_type: "auto",
+          // This tells Cloudinary to automatically detect the file type (image, video, etc.).
+          resource_type: "auto", 
+          // This gives the file a unique identifier (uuid() generates a random ID).
           public_id: uuid(),
         },
         (error, result) => {
